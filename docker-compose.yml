@@ -4,7 +4,8 @@
 version: '3.1'
 services:
     mysql:
-        image: 'mysql:8.0'
+        platform: linux/x86_64
+        image: mysql:5.7
         working_dir: /iwannaeat
         volumes:
             - './src:/iwannaeat'
@@ -17,6 +18,7 @@ services:
             - '40009:3306'
 
     elasticsearch:
+        platform: linux/x86_64
         image: 'elasticsearch:6.5.4'
 
     webserver:
@@ -24,7 +26,7 @@ services:
         working_dir: /iwannaeat
         volumes:
             - './src:/iwannaeat'
-            - './phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf'
+#            - './phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf'
         ports:
             - '40007:80'
 
