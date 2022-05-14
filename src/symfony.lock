@@ -17,6 +17,30 @@
             "config/packages/broadway.yaml"
         ]
     },
+    "broadway/event-store-dbal": {
+        "version": "0.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "0.2",
+            "ref": "a8e44b60058a2798f65be93037aa1562f4de60eb"
+        },
+        "files": [
+            "config/packages/broadway_event_store_dbal.yaml"
+        ]
+    },
+    "broadway/read-model-elasticsearch": {
+        "version": "0.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "0.3",
+            "ref": "9afaea6bf879d010ff3d10395e2e21e02388462c"
+        },
+        "files": [
+            "config/packages/broadway_read_model_elasticsearch.yaml"
+        ]
+    },
     "broadway/uuid-generator": {
         "version": "1.0.0"
     },
@@ -95,6 +119,15 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
+    "elasticsearch/elasticsearch": {
+        "version": "v7.17.0"
+    },
+    "ezimuel/guzzlestreams": {
+        "version": "3.0.1"
+    },
+    "ezimuel/ringphp": {
+        "version": "1.2.0"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.12"
     },
@@ -112,6 +145,9 @@
     },
     "psr/log": {
         "version": "3.0.0"
+    },
+    "react/promise": {
+        "version": "v2.9.0"
     },
     "symfony/cache": {
         "version": "v6.0.8"
