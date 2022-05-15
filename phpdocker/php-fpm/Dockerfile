@@ -3,7 +3,8 @@ WORKDIR "/iwannaeat"
 
 RUN apt-get update; \
     apt-get -y --no-install-recommends install \
-        git \ 
+        git \
+        mongodb \
         php8.1-mongodb \ 
         php8.1-mysql; \
     apt-get clean; \

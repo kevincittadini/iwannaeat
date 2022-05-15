@@ -4,6 +4,7 @@
 version: '3.1'
 services:
     mysql:
+        container_name: iwannaeat-mysql
         platform: linux/x86_64
         image: mysql:5.7
         working_dir: /iwannaeat
@@ -16,14 +17,24 @@ services:
             - MYSQL_PASSWORD=iwannaeat
         ports:
             - '40009:3306'
+        networks:
+            - iwannaeat-net
 
-    elasticsearch:
+    mongodb:
+        container_name: iwannaeat-mongodb
         platform: linux/x86_64
-        image: 'elasticsearch:6.5.4'
+        image: 'mongo:4.4.14'
+        environment:
+            - MONGO_INITDB_DATABASE=iwannaeat
+            - MONGO_INITDB_ROOT_USERNAME=iwannaeat
+            - MONGO_INITDB_ROOT_PASSWORD=iwannaeat
         ports:
-            - "40008:9200"
+            - "40017:27017"
+        networks:
+            - iwannaeat-net
 
     webserver:
+        container_name: iwannaeat-webserver
         image: 'nginx:alpine'
         working_dir: /iwannaeat
         volumes:
@@ -32,13 +43,28 @@ services:
         ports:
             - '40007:80'
         networks:
-            default:
+            iwannaeat-net:
                 aliases:
                     - api.iwannaeat.local
 
     php-fpm:
+        container_name: iwannaeat-php-fpm
         build: phpdocker/php-fpm
         working_dir: /iwannaeat
         volumes:
             - './src:/iwannaeat'
             - './phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/8.1/fpm/conf.d/99-overrides.ini'
+        depends_on:
+            - webserver
+            - mysql
+            - mongodb
+        links:
+            - webserver
+            - mysql
+            - mongodb
+        networks:
+            - iwannaeat-net
+
+networks:
+    iwannaeat-net:
+        driver: bridge
