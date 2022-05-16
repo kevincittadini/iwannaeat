@@ -8,6 +8,9 @@
     "beberlei/assert": {
         "version": "v3.3.2"
     },
+    "brick/math": {
+        "version": "0.9.3"
+    },
     "broadway/broadway": {
         "version": "2.4.0"
     },
@@ -246,6 +249,12 @@
     },
     "psr/log": {
         "version": "3.0.0"
+    },
+    "ramsey/collection": {
+        "version": "1.2.2"
+    },
+    "ramsey/uuid": {
+        "version": "4.3.1"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"
