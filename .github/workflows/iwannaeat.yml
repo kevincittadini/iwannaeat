@@ -38,4 +38,5 @@ jobs:
       working-directory: ./src
       run: vendor/bin/psalm
     - name: Execute tests (Unit and Feature tests) via PHPUnit
+      working-directory: ./src
       run: vendor/bin/phpunit
