@@ -28,4 +28,13 @@ class IdTest extends TestCase
     {
         $this->assertSame($this->id, sprintf('%s', new Id($this->id)));
     }
+
+    /** @test */
+    public function it_is_uuid_value(): void
+    {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('Invalid ID.');
+
+        new Id('hello');
+    }
 }
