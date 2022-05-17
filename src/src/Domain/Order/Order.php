@@ -13,6 +13,10 @@ final class Order extends EventSourcedAggregateRoot
     private Id $orderId;
     private \DateTimeImmutable $placedAt;
 
+    private function __construct()
+    {
+    }
+
     public static function placeOrder(PlaceOrder $placeOrder): self
     {
         $order = new self();
