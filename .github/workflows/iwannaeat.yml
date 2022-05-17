@@ -21,7 +21,7 @@ jobs:
         php-version: '8.1'
     - uses: actions/checkout@v3
     - name: Copy .env.test.local
-      working-directory: ./src
+      working-directory: ./app
       run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');"
     - name: Cache Composer packages
       id: composer-cache
@@ -32,11 +32,11 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
     - name: Install Dependencies
-      working-directory: ./src
+      working-directory: ./app
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Execute Psalm
-      working-directory: ./src
+      working-directory: ./app
       run: vendor/bin/psalm
     - name: Execute tests (Unit and Feature tests) via PHPUnit
-      working-directory: ./src
+      working-directory: ./app
       run: vendor/bin/phpunit
