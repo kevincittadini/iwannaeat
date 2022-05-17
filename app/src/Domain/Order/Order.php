@@ -7,7 +7,7 @@ namespace IWannaEat\Domain\Order;
 use Broadway\EventSourcing\EventSourcedAggregateRoot;
 use IWannaEat\Domain\Id;
 
-/** @psalm-suppress MissingConstructor */
+/** @psalm-suppress PropertyNotSetInConstructor */
 final class Order extends EventSourcedAggregateRoot
 {
     private Id $orderId;
