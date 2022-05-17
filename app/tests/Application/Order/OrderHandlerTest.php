@@ -8,9 +8,12 @@ namespace IWannaEat\Tests\Application\Order;
 use Broadway\CommandHandling\CommandHandler;
 use Broadway\CommandHandling\Testing\CommandHandlerScenarioTestCase;
 use Broadway\EventHandling\EventBus;
+use Broadway\EventSourcing\AggregateFactory\PublicConstructorAggregateFactory;
 use Broadway\EventStore\EventStore;
+use IWannaEat\Application\Order\OrderAggregateRepository;
 use IWannaEat\Application\Order\OrderHandler;
 use IWannaEat\Domain\Id;
+use IWannaEat\Domain\Order\Order;
 use IWannaEat\Domain\Order\OrderPlaced;
 use IWannaEat\Domain\Order\PlaceOrder;
 
@@ -45,6 +48,13 @@ class OrderHandlerTest extends CommandHandlerScenarioTestCase
 
     protected function createCommandHandler(EventStore $eventStore, EventBus $eventBus): CommandHandler
     {
-        return new OrderHandler();
+        return new OrderHandler(
+            new OrderAggregateRepository(
+                $eventStore,
+                $eventBus,
+                Order::class,
+                new PublicConstructorAggregateFactory()
+            )
+        );
     }
 }
