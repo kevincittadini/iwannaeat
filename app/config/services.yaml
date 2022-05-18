@@ -34,9 +34,20 @@ services:
     IWannaEat\Infrastructure\EventStoreManager:
         public: true
 
+    iwannaeat.read_model.order_recap.mongodb_collection:
+        class: MongoDB\Collection
+        factory: [ '@broadway.read_model.mongodb_client', selectCollection ]
+        arguments: [ '%mongodb_database%', 'order_recap' ]
+
+    iwannaeat.read_model.order_recap.mongodb.repository_factory:
+        class: Broadway\ReadModel\MongoDB\MongoDBRepositoryFactory
+        arguments:
+            - "@iwannaeat.read_model.order_recap.mongodb_collection"
+            - "@broadway.serializer.readmodel"
+
     iwannaeat.order_recap.read_model.repository:
         class: Broadway\ReadModel\MongoDB\MongoDBRepository
-        factory: ['@broadway.read_model.mongodb.repository_factory', create]
+        factory: ['@iwannaeat.read_model.order_recap.mongodb.repository_factory', create]
         arguments:
             - 'order_recap'
             - 'IWannaEat\Application\Order\OrderRecapModel'
