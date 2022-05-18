@@ -11,7 +11,7 @@ use IWannaEat\Domain\Order\OrderPlaced;
 /**
  * @psalm-suppress PropertyNotSetInConstructor
  * @psalm-immutable
- * @psalm-type OrderRecapModelData = array{orderId: string, placedAt: string}
+ * @psalm-type OrderRecapModelData = array{id: string, placedAt: string}
  */
 final class OrderRecapModel implements SerializableReadModel
 {
