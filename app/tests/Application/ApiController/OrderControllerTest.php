@@ -11,6 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class OrderControllerTest extends ApiTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
     /** @test */
     public function it_places_order_via_api_and_returns_order_id(): void
     {

@@ -13,7 +13,6 @@ final class EventStoreManager
         private Connection $connection,
         private DBALEventStore $eventStore
     ) {
-
     }
 
     public function init(): void
@@ -21,7 +20,10 @@ final class EventStoreManager
         $schemaManager = $this->connection->createSchemaManager();
         $table = $this->eventStore->configureTable();
 
-        $schemaManager->dropTable($table->getName());
+        if ($schemaManager->tablesExist($table->getName())) {
+            $schemaManager->dropTable($table->getName());
+        }
+
         $schemaManager->createTable($table);
     }
 }

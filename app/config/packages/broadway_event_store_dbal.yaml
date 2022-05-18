@@ -11,3 +11,5 @@ services:
             - "events"
             - false
             - "@broadway.uuid.converter"
+
+    Broadway\EventStore\Dbal\DBALEventStore: '@broadway.event_store.dbal'

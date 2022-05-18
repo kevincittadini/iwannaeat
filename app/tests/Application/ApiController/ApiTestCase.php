@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace IWannaEat\Tests\Application\ApiController;
 
 use GuzzleHttp\Client;
+use IWannaEat\Infrastructure\EventStoreManager;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -20,6 +21,10 @@ abstract class ApiTestCase extends KernelTestCase
             'base_uri' => $container->getParameter('api_base_uri'),
             'allow_redirects' => false,
         ]);
+
+        /** @var EventStoreManager $eventStoreManager */
+        $eventStoreManager = $container->get(EventStoreManager::class);
+        $eventStoreManager->init();
     }
 
     protected function responseBodyToArray(ResponseInterface $response): array
