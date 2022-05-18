@@ -5,6 +5,8 @@ declare(strict_types=1);
 
 namespace IWannaEat\Tests\Application\ApiController;
 
+use Assert\Assertion;
+
 final class OrderControllerTest extends ApiTestCase
 {
     /** @test */
@@ -18,6 +20,12 @@ final class OrderControllerTest extends ApiTestCase
 
         $actual = $this->responseBodyToArray($response);
 
-        $this->assertEquals([], $actual);
+        $this->assertIsValidPlaceOrderResponse($actual);
+    }
+
+    private function assertIsValidPlaceOrderResponse(array $actual): void
+    {
+        $this->assertTrue(isset($actual['orderId']));
+        $this->assertTrue(Assertion::uuid($actual['orderId']));
     }
 }
