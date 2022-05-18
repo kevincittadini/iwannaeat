@@ -18,12 +18,12 @@ final class OrderPlaced implements Serializable
     ) {
     }
 
-    public static function deserialize(array $data): static
+    public static function deserialize(array $data): self
     {
         /**
          * @psalm-var OrderPlacedData $data
          */
-        return new static(
+        return new self(
             new Id($data['orderId']),
             new \DateTimeImmutable($data['placedAt'])
         );
