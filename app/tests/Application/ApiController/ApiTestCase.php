@@ -6,6 +6,7 @@ namespace IWannaEat\Tests\Application\ApiController;
 
 use GuzzleHttp\Client;
 use IWannaEat\Infrastructure\EventStoreManager;
+use IWannaEat\Infrastructure\ReadModelManager;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -25,6 +26,10 @@ abstract class ApiTestCase extends KernelTestCase
         /** @var EventStoreManager $eventStoreManager */
         $eventStoreManager = $container->get(EventStoreManager::class);
         $eventStoreManager->init();
+
+        /** @var ReadModelManager $readModelManager */
+        $readModelManager = $container->get(ReadModelManager::class);
+        $readModelManager->init();
     }
 
     protected function responseBodyToArray(ResponseInterface $response): array

@@ -34,6 +34,12 @@ services:
     IWannaEat\Infrastructure\EventStoreManager:
         public: true
 
+    IWannaEat\Infrastructure\ReadModelManager:
+        public: true
+        arguments:
+            $dbName: '%mongodb_database%'
+            $client: '@broadway.read_model.mongodb_client'
+
     iwannaeat.read_model.order_recap.mongodb_collection:
         class: MongoDB\Collection
         factory: [ '@broadway.read_model.mongodb_client', selectCollection ]
