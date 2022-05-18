@@ -11,6 +11,5 @@ final class OrderProcessor extends Processor
 {
     protected function handleOrderPlaced(OrderPlaced $orderPlaced): void
     {
-
     }
 }

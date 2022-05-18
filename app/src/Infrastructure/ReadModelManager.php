@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-
 namespace IWannaEat\Infrastructure;
 
-class ReadModelManager
+final class ReadModelManager
 {
-
 }
