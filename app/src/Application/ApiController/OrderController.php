@@ -45,7 +45,7 @@ final class OrderController
     public function getOrderRecapAction(string $orderId): JsonResponse
     {
         try {
-            /** @var null|OrderRecapModel $orderRecap */
+            /** @var OrderRecapModel|null $orderRecap */
             $orderRecap = $this->orderRecapRepository->find($orderId);
 
             if (is_null($orderRecap)) {
