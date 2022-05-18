@@ -15,8 +15,8 @@ use IWannaEat\Domain\Order\OrderPlaced;
  */
 final class OrderRecapModel implements SerializableReadModel
 {
-    public Id $orderId; // @todo: set readonly attribute when Psalm fixes PHP8.1 support. Fallback to @psalm-immutable.
-    public \DateTimeImmutable $placedAt;
+    public Id $id; // @todo: set readonly attribute when Psalm fixes PHP8.1 support. Fallback to @psalm-immutable.
+    public \DateTimeImmutable $placedAt; // @todo: set readonly attribute when Psalm fixes PHP8.1 support. Fallback to @psalm-immutable.
 
     private function __construct()
     {
@@ -24,14 +24,14 @@ final class OrderRecapModel implements SerializableReadModel
 
     public function getId(): string
     {
-        return (string) $this->orderId;
+        return (string) $this->id;
     }
 
     public static function fromOrderPlaced(OrderPlaced $orderPlaced): self
     {
         $order = new self();
 
-        $order->orderId = $orderPlaced->orderId;
+        $order->id = $orderPlaced->orderId;
         $order->placedAt = $orderPlaced->placedAt;
 
         return $order;
@@ -42,7 +42,7 @@ final class OrderRecapModel implements SerializableReadModel
         /** @psalm-var OrderRecapModelData $data */
         $order = new self();
 
-        $order->orderId = new Id($data['orderId']);
+        $order->id = new Id($data['id']);
         $order->placedAt = new \DateTimeImmutable($data['placedAt']);
 
         return $order;
@@ -52,7 +52,7 @@ final class OrderRecapModel implements SerializableReadModel
     public function serialize(): array
     {
         return [
-            'orderId' => (string) $this->orderId,
+            'id' => (string) $this->id,
             'placedAt' => $this->placedAt->format(\DateTimeInterface::ATOM),
         ];
     }

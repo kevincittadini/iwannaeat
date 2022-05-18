@@ -45,6 +45,10 @@ final class OrderControllerTest extends ApiTestCase
 
     private function assertIsValidOrderRecapResponse(ResponseInterface $response): void
     {
+        $actual = $this->responseBodyToArray($response);
 
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        $this->assertTrue(isset($actual['id']));
+        $this->assertTrue(Assertion::uuid($actual['id']));
     }
 }

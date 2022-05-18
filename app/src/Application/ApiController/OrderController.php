@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace IWannaEat\Application\ApiController;
 
 use Broadway\CommandHandling\CommandBus;
+use Broadway\ReadModel\Repository;
+use IWannaEat\Application\Order\OrderRecapModel;
 use IWannaEat\Domain\IdGenerator;
 use IWannaEat\Domain\Order\PlaceOrder;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,7 +17,8 @@ final class OrderController
 {
     public function __construct(
         private IdGenerator $idGenerator,
-        private CommandBus $commandBus
+        private CommandBus $commandBus,
+        private Repository $orderRecapRepository
     ) {
     }
 
@@ -41,6 +44,17 @@ final class OrderController
     #[Route('/orders/{orderId}', name: 'get_order_recap_action', methods: ['GET'])]
     public function getOrderRecapAction(string $orderId): JsonResponse
     {
-        return new JsonResponse([], Response::HTTP_OK);
+        try {
+            /** @var null|OrderRecapModel $orderRecap */
+            $orderRecap = $this->orderRecapRepository->find($orderId);
+
+            if (is_null($orderRecap)) {
+                throw new \DomainException('Order not found.');
+            }
+
+            return new JsonResponse($orderRecap->serialize(), Response::HTTP_OK);
+        } catch (\Throwable $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_NOT_FOUND);
+        }
     }
 }

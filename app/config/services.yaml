@@ -41,6 +41,11 @@ services:
             - 'order_recap'
             - 'IWannaEat\Application\Order\OrderRecapModel'
 
+    IWannaEat\Application\ApiController\OrderController:
+        public: true
+        arguments:
+            $orderRecapRepository: '@iwannaeat.order_recap.read_model.repository'
+
     IWannaEat\Application\Order\OrderAggregateRepository:
         arguments:
             $eventStore: '@broadway.event_store.dbal'
