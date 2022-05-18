@@ -34,7 +34,7 @@ final class OrderController
 
             return new JsonResponse(['orderId' => (string) $orderId], Response::HTTP_CREATED);
         } catch (\Throwable $e) {
-            return new JsonResponse(['error' => $e->getMessage()], $e->getCode());
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

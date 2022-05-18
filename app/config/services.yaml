@@ -34,6 +34,13 @@ services:
     IWannaEat\Infrastructure\EventStoreManager:
         public: true
 
+    iwannaeat.order_recap.read_model.repository:
+        class: Broadway\ReadModel\MongoDB\MongoDBRepository
+        factory: ['@broadway.read_model.mongodb.repository_factory', create]
+        arguments:
+            - 'order_recap'
+            - 'IWannaEat\Application\Order\OrderRecapModel'
+
     IWannaEat\Application\Order\OrderAggregateRepository:
         arguments:
             $eventStore: '@broadway.event_store.dbal'
@@ -43,3 +50,8 @@ services:
 
     IWannaEat\Application\Order\OrderHandler:
         tags: [broadway.command_handler]
+
+    IWannaEat\Application\Order\OrderRecapProjector:
+        arguments:
+            $repository: '@iwannaeat.order_recap.read_model.repository'
+        tags: [broadway.domain.event_listener]
