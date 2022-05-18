@@ -37,6 +37,6 @@ jobs:
     - name: Execute Psalm
       working-directory: ./app
       run: vendor/bin/psalm
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
+    - name: Execute unit tests
       working-directory: ./app
-      run: vendor/bin/phpunit
+      run: vendor/bin/phpunit --testsuite=IWannaEat.unit
