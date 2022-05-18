@@ -6,6 +6,7 @@
 parameters:
     mongodb_uri: '%env(BROADWAY_READ_MODEL_MONGODB_URI)%'
     mongodb_database: '%env(BROADWAY_READ_MODEL_MONGODB_DATABASE)%'
+    api_base_uri: '%env(API_BASE_URI)%'
 
 services:
     # default configuration for services in *this* file
