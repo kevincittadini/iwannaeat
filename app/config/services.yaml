@@ -60,3 +60,6 @@ services:
         arguments:
             $repository: '@iwannaeat.order_recap.read_model.repository'
         tags: [broadway.domain.event_listener]
+
+    IWannaEat\Application\Order\OrderProcessor:
+        tags: [ broadway.domain.event_listener ]
