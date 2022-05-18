@@ -9,12 +9,22 @@ use IWannaEat\Application\Order\OrderProcessor;
 use IWannaEat\Domain\Id;
 use IWannaEat\Domain\Order\OrderPlaced;
 use IWannaEat\Tests\Application\ProcessorTestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\RawMessage;
 
 class OrderProcessorTest extends ProcessorTestCase
 {
+    use ProphecyTrait;
+
+    /** @var MailerInterface */
+    private $mailer;
+
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->mailer = $this->prophesize(MailerInterface::class);
     }
 
     /** @test */
@@ -28,11 +38,13 @@ class OrderProcessorTest extends ProcessorTestCase
             $placedAt
         );
 
+        $this->mailer->send(new RawMessage('Order placed!! Yahoo!'))->shouldBeCalled();
+
         $this->handleEvent($orderPlaced);
     }
 
     protected function registerProcessor(): Processor
     {
-        return new OrderProcessor();
+        return new OrderProcessor($this->mailer->reveal());
     }
 }
