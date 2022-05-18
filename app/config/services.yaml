@@ -33,3 +33,13 @@ services:
 
     IWannaEat\Infrastructure\EventStoreManager:
         public: true
+
+    IWannaEat\Application\Order\OrderAggregateRepository:
+        arguments:
+            $eventStore: '@broadway.event_store.dbal'
+            $eventBus: '@broadway.event_handling.event_bus'
+            $aggregateFactory: '@broadway.event_sourcing.aggregate_factory.public'
+            $aggregateClass: '_hardcoded_'
+
+    IWannaEat\Application\Order\OrderHandler:
+        tags: [broadway.command_handler]

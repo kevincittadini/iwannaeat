@@ -29,3 +29,5 @@ broadway:
 
 services:
     Broadway\CommandHandling\CommandBus: '@broadway.command_handling.simple_command_bus'
+    broadway.event_sourcing.aggregate_factory.public:
+        class: Broadway\EventSourcing\AggregateFactory\PublicConstructorAggregateFactory
