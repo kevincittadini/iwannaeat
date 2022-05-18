@@ -25,3 +25,7 @@ broadway:
 
         # a service definition id implementing Broadway\Saga\State\RepositoryInterface
         state_repository: broadway.saga.state.in_memory_repository
+
+
+services:
+    Broadway\CommandHandling\CommandBus: '@broadway.command_handling.simple_command_bus'

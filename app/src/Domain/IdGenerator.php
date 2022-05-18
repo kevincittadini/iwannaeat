@@ -6,7 +6,7 @@ namespace IWannaEat\Domain;
 
 use Ramsey\Uuid\Uuid;
 
-final class IdGenerator
+final class IdGenerator implements IdGeneratorInterface
 {
     public function generate(): Id
     {

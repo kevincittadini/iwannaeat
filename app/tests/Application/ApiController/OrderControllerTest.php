@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace IWannaEat\Tests\Application\ApiController;
 
 use Assert\Assertion;
+use Symfony\Component\HttpFoundation\Response;
 
 final class OrderControllerTest extends ApiTestCase
 {
@@ -20,6 +21,7 @@ final class OrderControllerTest extends ApiTestCase
 
         $actual = $this->responseBodyToArray($response);
 
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
         $this->assertIsValidPlaceOrderResponse($actual);
     }
 
