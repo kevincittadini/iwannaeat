@@ -6,6 +6,7 @@ namespace IWannaEat\Application\Order;
 
 use Broadway\ReadModel\SerializableReadModel;
 use IWannaEat\Domain\Id;
+use IWannaEat\Domain\Order\OrderPlaced;
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -24,6 +25,16 @@ final class OrderRecapModel implements SerializableReadModel
     public function getId(): string
     {
         return (string) $this->orderId;
+    }
+
+    public static function fromOrderPlaced(OrderPlaced $orderPlaced): self
+    {
+        $order = new self();
+
+        $order->orderId = $orderPlaced->orderId;
+        $order->placedAt = $orderPlaced->placedAt;
+
+        return $order;
     }
 
     public static function deserialize(array $data): self

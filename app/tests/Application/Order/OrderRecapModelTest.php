@@ -6,6 +6,7 @@ namespace IWannaEat\Tests\Application\Order;
 
 use IWannaEat\Application\Order\OrderRecapModel;
 use IWannaEat\Domain\Id;
+use IWannaEat\Domain\Order\OrderPlaced;
 use PHPUnit\Framework\TestCase;
 
 class OrderRecapModelTest extends TestCase
@@ -38,5 +39,15 @@ class OrderRecapModelTest extends TestCase
             $this->orderRecapData,
             OrderRecapModel::deserialize($this->orderRecapData)->serialize()
         );
+    }
+
+    /** @test */
+    public function it_inits_read_model_from_order_placed_event(): void
+    {
+        $orderPlaced = OrderPlaced::deserialize($this->orderRecapData);
+        $order = OrderRecapModel::fromOrderPlaced($orderPlaced);
+
+        $this->assertEquals($orderPlaced->orderId, $order->orderId);
+        $this->assertEquals($orderPlaced->placedAt, $order->placedAt);
     }
 }
