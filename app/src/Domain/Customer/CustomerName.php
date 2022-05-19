@@ -35,6 +35,7 @@ final class CustomerName implements Serializable
 
     public static function deserialize(array $data): self
     {
+        /** @psalm-var array{familyName: string, names: string[]} $data */
         return new self(
             $data['familyName'],
             $data['names']

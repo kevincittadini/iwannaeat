@@ -24,6 +24,7 @@ final class Customer implements SimpleEntity
 
     public static function deserialize(array $data): self
     {
+        /** @psalm-var array{id: string, name: array<string, string|string[]>, emailAddress: string} $data */
         return new self(
             new Id($data['id']),
             CustomerName::deserialize($data['name']),
