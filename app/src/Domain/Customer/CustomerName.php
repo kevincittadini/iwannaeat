@@ -43,7 +43,7 @@ final class CustomerName implements Serializable
 
     public function serialize(): array
     {
-       return [
+        return [
            'familyName' => $this->familyName,
            'names' => $this->names,
        ];

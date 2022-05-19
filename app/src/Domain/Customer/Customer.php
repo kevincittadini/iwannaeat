@@ -15,12 +15,11 @@ final class Customer implements SimpleEntity
         public readonly CustomerName $name,
         public readonly EmailAddress $emailAddress
     ) {
-
     }
 
     public function getId(): string
     {
-        return (string)$this->id;
+        return (string) $this->id;
     }
 
     public static function deserialize(array $data): self
@@ -35,7 +34,7 @@ final class Customer implements SimpleEntity
     public function serialize(): array
     {
         return [
-            'id' => (string)$this->id,
+            'id' => (string) $this->id,
             'name' => $this->name->serialize(),
             'emailAddress' => $this->emailAddress->toString(),
         ];
