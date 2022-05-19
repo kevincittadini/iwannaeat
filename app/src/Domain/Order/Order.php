@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace IWannaEat\Domain\Order;
 
 use Broadway\EventSourcing\EventSourcedAggregateRoot;
+use IWannaEat\Domain\Customer\Customer;
 use IWannaEat\Domain\Id;
+use IWannaEat\Domain\Product\ProductList;
 
 /** @psalm-suppress PropertyNotSetInConstructor */
 final class Order extends EventSourcedAggregateRoot
 {
     private Id $orderId;
     private \DateTimeImmutable $placedAt;
+    private Customer $customer;
+    private ProductList $productList;
 
     private function __construct()
     {
@@ -23,6 +27,8 @@ final class Order extends EventSourcedAggregateRoot
 
         $order->apply(new OrderPlaced(
             $placeOrder->orderId,
+            $placeOrder->customer,
+            $placeOrder->productList,
             $placeOrder->placedAt
         ));
 
@@ -32,6 +38,8 @@ final class Order extends EventSourcedAggregateRoot
     public function applyOrderPlaced(OrderPlaced $orderPlaced): void
     {
         $this->orderId = $orderPlaced->orderId;
+        $this->customer = $orderPlaced->customer;
+        $this->productList = $orderPlaced->productList;
         $this->placedAt = $orderPlaced->placedAt;
     }
 
