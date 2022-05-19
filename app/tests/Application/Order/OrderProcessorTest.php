@@ -17,6 +17,7 @@ use IWannaEat\Tests\Application\ProcessorTestCase;
 use Money\Money;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\RawMessage;
 
 class OrderProcessorTest extends ProcessorTestCase
@@ -68,7 +69,13 @@ class OrderProcessorTest extends ProcessorTestCase
             $placedAt
         );
 
-//        $this->mailer->send(new RawMessage('Order placed!! Yahoo!'))->shouldBeCalled();
+        $email = (new Email())
+            ->from('iwannaeat@example.com')
+            ->to($customer->emailAddress->toString())
+            ->html(sprintf("<h2>Nuovo ordine eseguito!</h2><p>Ti confermiamo che hai eseguito l'ordine ID %s</p>", $orderPlaced->orderId))
+            ->text(sprintf("Nuovo ordine eseguito! Ti confermiamo che hai eseguito l'ordine ID %s", $orderPlaced->orderId));
+
+        $this->mailer->send($email)->shouldBeCalled();
 
         $this->handleEvent($orderPlaced);
     }
