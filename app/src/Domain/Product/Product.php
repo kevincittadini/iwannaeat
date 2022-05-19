@@ -6,6 +6,7 @@ namespace IWannaEat\Domain\Product;
 
 use IWannaEat\Domain\Id;
 use IWannaEat\Domain\SimpleEntity;
+use Money\Currency;
 use Money\Money;
 
 final class Product implements SimpleEntity
@@ -24,7 +25,11 @@ final class Product implements SimpleEntity
 
     public static function deserialize(array $data): self
     {
-        return new Product();
+        return new Product(
+            new Id($data['id']),
+            $data['name'],
+            new Money($data['price']['amount'], new Currency($data['price']['currency']))
+        );
     }
 
     public function serialize(): array

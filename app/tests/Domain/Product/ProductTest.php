@@ -52,4 +52,26 @@ class ProductTest extends TestCase
 
         $this->assertEquals($expected, $actual);
     }
+
+    /** @test  */
+    public function it_deserializes_product_data(): void
+    {
+        $id = new Id('00000000-0000-0000-0000-000000000001');
+        $name = 'Prod 1';
+        $price = Money::EUR(123);
+
+        $product = new Product(
+            $id,
+            $name,
+            $price
+        );
+
+        $data = [
+            'id' => (string)$id,
+            'name' => $name,
+            'price' => $price->jsonSerialize(),
+        ];
+
+        $this->assertEquals($product, Product::deserialize($data));
+    }
 }

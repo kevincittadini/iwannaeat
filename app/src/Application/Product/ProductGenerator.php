@@ -8,7 +8,7 @@ use IWannaEat\Application\IdGeneratorInterface;
 use IWannaEat\Domain\Product\Product;
 use Money\Money;
 
-final class ProductGenerator
+final class ProductGenerator implements ProductGeneratorInterface
 {
     /** @var string[] */
     private array $productNamesRepository;
