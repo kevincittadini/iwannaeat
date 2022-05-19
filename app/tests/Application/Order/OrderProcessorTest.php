@@ -70,6 +70,7 @@ class OrderProcessorTest extends ProcessorTestCase
         );
 
         $email = (new Email())
+            ->subject('Nuovo ordine IWannaEat eseguito!')
             ->from('iwannaeat@example.com')
             ->to($customer->emailAddress->toString())
             ->html(sprintf("<h2>Nuovo ordine eseguito!</h2><p>Ti confermiamo che hai eseguito l'ordine ID %s</p>", $orderPlaced->orderId))

@@ -20,6 +20,7 @@ final class OrderProcessor extends Processor
     protected function handleOrderPlaced(OrderPlaced $orderPlaced): void
     {
         $email = (new Email())
+            ->subject('Nuovo ordine IWannaEat eseguito!')
             ->from('iwannaeat@example.com')
             ->to($orderPlaced->customer->emailAddress->toString())
             ->html(sprintf("<h2>Nuovo ordine eseguito!</h2><p>Ti confermiamo che hai eseguito l'ordine ID %s</p>", $orderPlaced->orderId))
