@@ -26,4 +26,45 @@ class CustomerNameTest extends TestCase
         $customerName = new CustomerName($familyName, $names);
         $this->assertSame('Alessandro Mario ROSSI', $customerName->getFullName());
     }
+
+    /** @test */
+    public function it_serializes_data_with_single_name(): void
+    {
+        $familyName = 'Rossi';
+        $names = 'Alessandro';
+        $customerName = new CustomerName($familyName, $names);
+
+        $this->assertEquals([
+            'familyName' => $familyName,
+            'names' => [$names],
+        ], $customerName->serialize());
+    }
+
+    /** @test */
+    public function it_serializes_data_with_multiple_names(): void
+    {
+        $familyName = 'Rossi';
+        $names = ['Alessandro', 'Mario'];
+        $customerName = new CustomerName($familyName, $names);
+
+        $this->assertEquals([
+            'familyName' => $familyName,
+            'names' => $names,
+        ], $customerName->serialize());
+    }
+
+    /** @test */
+    public function it_deserializes_into_customer_name(): void
+    {
+        $familyName = 'Rossi';
+        $names = ['Alessandro', 'Mario'];
+        $expected = new CustomerName($familyName, $names);
+
+        $actual = CustomerName::deserialize([
+            'familyName' => $familyName,
+            'names' => $names,
+        ]);
+
+        $this->assertEquals($expected, $actual);
+    }
 }

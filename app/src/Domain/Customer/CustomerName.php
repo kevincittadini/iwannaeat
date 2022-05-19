@@ -4,27 +4,48 @@ declare(strict_types=1);
 
 namespace IWannaEat\Domain\Customer;
 
-final class CustomerName
+use Broadway\Serializer\Serializable;
+
+final class CustomerName implements Serializable
 {
-    /**
-     * @param string $familyName
-     * @param string|array<string> $names
-     */
+    /** @var string[] */
+    private array $names;
+    private string $familyName;
+
+    /** @param string|string[] $names */
     public function __construct(
-        private string $familyName,
-        private string|array $names
+        string $familyName,
+        string|array $names
     ) {
+        if (is_string($names)) {
+            $names = [$names];
+        }
+
+        $this->names = $names;
+        $this->familyName = $familyName;
     }
 
     public function getFullName(): string
     {
-        if (!is_array($this->names)) {
-            $this->names = [$this->names];
-        }
-
         return sprintf(
             '%s %s',
             implode(' ', $this->names), mb_strtoupper($this->familyName)
         );
+    }
+
+    public static function deserialize(array $data): self
+    {
+        return new self(
+            $data['familyName'],
+            $data['names']
+        );
+    }
+
+    public function serialize(): array
+    {
+       return [
+           'familyName' => $this->familyName,
+           'names' => $this->names,
+       ];
     }
 }
