@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace IWannaEat\Tests\Domain;
+namespace IWannaEat\Tests\Application;
 
-use IWannaEat\Domain\IdGenerator;
+use IWannaEat\Application\IdGenerator;
 use IWannaEat\Domain\Id;
 use PHPUnit\Framework\TestCase;
 

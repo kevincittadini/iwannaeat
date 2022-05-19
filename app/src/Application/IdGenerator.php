@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace IWannaEat\Domain;
+namespace IWannaEat\Application;
 
+use IWannaEat\Domain\Id;
 use Ramsey\Uuid\Uuid;
 
-final class IdGenerator
+final class IdGenerator implements IdGeneratorInterface
 {
     public function generate(): Id
     {

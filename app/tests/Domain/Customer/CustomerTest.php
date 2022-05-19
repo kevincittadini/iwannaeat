@@ -8,7 +8,7 @@ use IWannaEat\Domain\Customer\Customer;
 use IWannaEat\Domain\Customer\CustomerName;
 use IWannaEat\Domain\EmailAddress;
 use IWannaEat\Domain\Id;
-use IWannaEat\Domain\IdGenerator;
+use IWannaEat\Application\IdGenerator;
 use PHPUnit\Framework\TestCase;
 
 class CustomerTest extends TestCase
