@@ -8,6 +8,10 @@ use IWannaEat\Domain\EmailAddress;
 use IWannaEat\Domain\Id;
 use IWannaEat\Domain\SimpleEntity;
 
+/**
+ * @psalm-type CustomerData = array{id: string, name: CustomerNameData, emailAddress: string}
+ * @psalm-import-type CustomerNameData from CustomerName
+ */
 final class Customer implements SimpleEntity
 {
     public function __construct(
@@ -24,7 +28,7 @@ final class Customer implements SimpleEntity
 
     public static function deserialize(array $data): self
     {
-        /** @psalm-var array{id: string, name: array<string, string|string[]>, emailAddress: string} $data */
+        /** @psalm-var CustomerData $data */
         return new self(
             new Id($data['id']),
             CustomerName::deserialize($data['name']),
@@ -32,6 +36,9 @@ final class Customer implements SimpleEntity
         );
     }
 
+    /**
+     * @psalm-return CustomerData $data
+     */
     public function serialize(): array
     {
         return [

@@ -13,7 +13,7 @@ use IWannaEat\Domain\Product\ProductList;
 /**
  * @psalm-suppress PropertyNotSetInConstructor
  * @psalm-immutable
- * @psalm-type OrderRecapModelData = array{id: string, placedAt: string}
+ * @psalm-type OrderRecapModelData = array{id: string, customer: array, productList: array, placedAt: string}
  */
 final class OrderRecapModel implements SerializableReadModel
 {

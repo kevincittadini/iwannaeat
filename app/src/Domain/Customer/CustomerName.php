@@ -6,6 +6,9 @@ namespace IWannaEat\Domain\Customer;
 
 use Broadway\Serializer\Serializable;
 
+/**
+ * @psalm-type CustomerNameData = array{familyName: string, names: string[]}
+ */
 final class CustomerName implements Serializable
 {
     /** @var string[] */
@@ -35,13 +38,14 @@ final class CustomerName implements Serializable
 
     public static function deserialize(array $data): self
     {
-        /** @psalm-var array{familyName: string, names: string[]} $data */
+        /** @psalm-var CustomerNameData $data */
         return new self(
             $data['familyName'],
             $data['names']
         );
     }
 
+    /** @psalm-return CustomerNameData */
     public function serialize(): array
     {
         return [

@@ -9,6 +9,10 @@ use IWannaEat\Domain\SimpleEntity;
 use Money\Currency;
 use Money\Money;
 
+/**
+ * @psalm-type MoneyData = array{amount: string, currency: string}
+ * @psalm-type ProductData = array{id: string, name: string, price: MoneyData}
+ */
 final class Product implements SimpleEntity
 {
     public function __construct(
@@ -25,6 +29,8 @@ final class Product implements SimpleEntity
 
     public static function deserialize(array $data): self
     {
+        /** @psalm-var ProductData $data */
+
         return new Product(
             new Id($data['id']),
             $data['name'],
@@ -32,12 +38,16 @@ final class Product implements SimpleEntity
         );
     }
 
+    /** @psalm-return ProductData */
     public function serialize(): array
     {
+        /** @psalm-var MoneyData $price */
+        $price = $this->price->jsonSerialize();
+
         return [
             'id' => (string) $this->id,
             'name' => $this->name,
-            'price' => $this->price->jsonSerialize(),
+            'price' => $price,
         ];
     }
 }

@@ -6,6 +6,10 @@ namespace IWannaEat\Domain\Product;
 
 use Broadway\Serializer\Serializable;
 
+/**
+ * @psalm-import-type ProductData from Product
+ * @psalm-type ProductListData = array<ProductData>
+ */
 final class ProductList implements Serializable
 {
     /**
@@ -18,7 +22,7 @@ final class ProductList implements Serializable
 
     public static function deserialize(array $data): self
     {
-        /** @psalm-var array{productList: array} $data */
+        /** @psalm-var ProductListData $data */
         $productList = [];
 
         foreach ($data as $product) {
@@ -28,6 +32,7 @@ final class ProductList implements Serializable
         return new self($productList);
     }
 
+    /** @psalm-return ProductListData */
     public function serialize(): array
     {
         $productList = [];

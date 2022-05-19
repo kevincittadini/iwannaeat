@@ -22,8 +22,8 @@ final class OrderProcessor extends Processor
             ->subject('Nuovo ordine IWannaEat eseguito!')
             ->from('iwannaeat@example.com')
             ->to($orderPlaced->customer->emailAddress->toString())
-            ->html(sprintf("<h2>Nuovo ordine eseguito!</h2><p>Ti confermiamo che hai eseguito l'ordine ID %s</p>", $orderPlaced->orderId))
-            ->text(sprintf("Nuovo ordine eseguito! Ti confermiamo che hai eseguito l'ordine ID %s", $orderPlaced->orderId));
+            ->html(sprintf("<h2>Nuovo ordine eseguito!</h2><p>Ti confermiamo che hai eseguito l'ordine ID %s</p>", (string)$orderPlaced->orderId))
+            ->text(sprintf("Nuovo ordine eseguito! Ti confermiamo che hai eseguito l'ordine ID %s", (string)$orderPlaced->orderId));
 
         $this->mailer->send($email);
     }
