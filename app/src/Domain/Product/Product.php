@@ -10,6 +10,7 @@ use Money\Currency;
 use Money\Money;
 
 /**
+ * @psalm-suppress MixedArgument
  * @psalm-type MoneyData = array{amount: string, currency: string}
  * @psalm-type ProductData = array{id: string, name: string, price: MoneyData}
  */
@@ -34,7 +35,10 @@ final class Product implements SimpleEntity
         return new Product(
             new Id($data['id']),
             $data['name'],
-            new Money($data['price']['amount'], new Currency($data['price']['currency']))
+            new Money(
+                $data['price']['amount'],
+                new Currency($data['price']['currency'])
+            )
         );
     }
 
