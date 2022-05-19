@@ -44,8 +44,12 @@ final class CustomerNameGenerator implements CustomerNameGeneratorInterface
         $howManyNames = random_int(1, 3);
 
         while ($howManyNames > 0) {
-            $names[] = $this->namesRepository[random_int(0, count($this->namesRepository) - 1)];
-            --$howManyNames;
+            $name = $this->namesRepository[random_int(0, count($this->namesRepository) - 1)];
+
+            if (!in_array($name, $names)) {
+                $names[] = $name;
+                --$howManyNames;
+            }
         }
 
         return $names;
