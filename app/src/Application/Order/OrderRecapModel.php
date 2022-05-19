@@ -12,8 +12,11 @@ use IWannaEat\Domain\Product\ProductList;
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
- * @psalm-immutable
- * @psalm-type OrderRecapModelData = array{id: string, customer: array, productList: array, placedAt: string}
+ *
+ * @psalm-import-type ProductListData from ProductList
+ * @psalm-import-type CustomerData from Customer
+ *
+ * @psalm-type OrderRecapModelData = array{id: string, customer: CustomerData, productList: ProductListData, placedAt: string}
  */
 final class OrderRecapModel implements SerializableReadModel
 {
@@ -60,10 +63,13 @@ final class OrderRecapModel implements SerializableReadModel
     /** @psalm-return OrderRecapModelData */
     public function serialize(): array
     {
+        $customer = $this->customer->serialize();
+        $productList = $this->productList->serialize();
+
         return [
             'id' => (string) $this->id,
-            'customer' => $this->customer->serialize(),
-            'productList' => $this->productList->serialize(),
+            'customer' => $customer,
+            'productList' => $productList,
             'placedAt' => $this->placedAt->format(\DateTimeInterface::ATOM),
         ];
     }
