@@ -11,7 +11,7 @@ final class ReadModelManager
     public function __construct(
         private string $dbName,
         private Client $client
-    ){
+    ) {
     }
 
     public function init(): void
