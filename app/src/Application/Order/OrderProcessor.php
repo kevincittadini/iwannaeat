@@ -8,7 +8,6 @@ use Broadway\Processor\Processor;
 use IWannaEat\Domain\Order\OrderPlaced;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\Mime\RawMessage;
 
 final class OrderProcessor extends Processor
 {
