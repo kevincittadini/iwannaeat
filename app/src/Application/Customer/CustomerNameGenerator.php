@@ -8,7 +8,10 @@ use IWannaEat\Domain\Customer\CustomerName;
 
 final class CustomerNameGenerator implements CustomerNameGeneratorInterface
 {
+    /** @var string[] */
     private array $familyNamesRepository;
+
+    /** @var string[] */
     private array $namesRepository;
 
     public function __construct()
@@ -33,14 +36,16 @@ final class CustomerNameGenerator implements CustomerNameGeneratorInterface
         );
     }
 
+    /** @psalm-return string[] */
     private function generateNames(): array
     {
+        /** @var string[] $names */
         $names = [];
         $howManyNames = random_int(1, 3);
 
-        while($howManyNames > 0) {
+        while ($howManyNames > 0) {
             $names[] = $this->namesRepository[random_int(0, count($this->namesRepository) - 1)];
-            $howManyNames--;
+            --$howManyNames;
         }
 
         return $names;
