@@ -6,8 +6,8 @@ namespace IWannaEat\Application\ApiController;
 
 use Broadway\CommandHandling\CommandBus;
 use Broadway\ReadModel\Repository;
-use IWannaEat\Application\Order\OrderRecapModel;
 use IWannaEat\Application\IdGenerator;
+use IWannaEat\Application\Order\OrderRecapModel;
 use IWannaEat\Domain\Order\PlaceOrder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

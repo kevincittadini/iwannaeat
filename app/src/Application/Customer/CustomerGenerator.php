@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace IWannaEat\Application\Customer;
 
 use IWannaEat\Application\EmailAddressGeneratorInterface;
@@ -15,7 +14,7 @@ final class CustomerGenerator
         private IdGeneratorInterface $idGenerator,
         private CustomerNameGeneratorInterface $customerNameGenerator,
         private EmailAddressGeneratorInterface $emailAddressGenerator
-    ){
+    ) {
     }
 
     public function generate(): Customer
