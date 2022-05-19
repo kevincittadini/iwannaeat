@@ -52,11 +52,9 @@ class ProductListTest extends TestCase
     public function it_serializes(): void
     {
         $expected = [
-            'productList' => [
-                $this->p1->serialize(),
-                $this->p2->serialize(),
-                $this->p3->serialize()
-            ],
+            $this->p1->serialize(),
+            $this->p2->serialize(),
+            $this->p3->serialize()
         ];
 
         $actual = $this->productList->serialize();
@@ -68,11 +66,9 @@ class ProductListTest extends TestCase
     public function it_deserialize(): void
     {
         $data = [
-            'productList' => [
-                $this->p1->serialize(),
-                $this->p2->serialize(),
-                $this->p3->serialize()
-            ],
+            $this->p1->serialize(),
+            $this->p2->serialize(),
+            $this->p3->serialize()
         ];
 
         $this->assertEquals($this->productList, ProductList::deserialize($data));

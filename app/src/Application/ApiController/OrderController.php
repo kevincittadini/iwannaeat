@@ -6,8 +6,10 @@ namespace IWannaEat\Application\ApiController;
 
 use Broadway\CommandHandling\CommandBus;
 use Broadway\ReadModel\Repository;
+use IWannaEat\Application\Customer\CustomerGenerator;
 use IWannaEat\Application\IdGenerator;
 use IWannaEat\Application\Order\OrderRecapModel;
+use IWannaEat\Application\Product\ProductListGenerator;
 use IWannaEat\Domain\Order\PlaceOrder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +20,9 @@ final class OrderController
     public function __construct(
         private IdGenerator $idGenerator,
         private CommandBus $commandBus,
-        private Repository $orderRecapRepository
+        private Repository $orderRecapRepository,
+        private CustomerGenerator $customerGenerator,
+        private ProductListGenerator $productListGenerator
     ) {
     }
 
@@ -26,11 +30,15 @@ final class OrderController
     public function placeOrderAction(): JsonResponse
     {
         $orderId = $this->idGenerator->generate();
+        $customer = $this->customerGenerator->generate();
+        $productList = $this->productListGenerator->generate();
 
         try {
             $this->commandBus->dispatch(
                 new PlaceOrder(
                     $orderId,
+                    $customer,
+                    $productList,
                     new \DateTimeImmutable()
                 )
             );

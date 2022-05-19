@@ -18,6 +18,6 @@ final class OrderProcessor extends Processor
 
     protected function handleOrderPlaced(OrderPlaced $orderPlaced): void
     {
-        $this->mailer->send(new RawMessage('Order placed!! Yahoo!'));
+//        $this->mailer->send(new RawMessage('Order placed!! Yahoo!'));
     }
 }

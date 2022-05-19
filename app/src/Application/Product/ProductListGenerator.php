@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace IWannaEat\Application\Product;
 
 use IWannaEat\Domain\Product\ProductList;
@@ -11,7 +10,7 @@ final class ProductListGenerator
 {
     public function __construct(
         private ProductGeneratorInterface $productGenerator
-    ){
+    ) {
     }
 
     public function generate(): ProductList
@@ -20,9 +19,9 @@ final class ProductListGenerator
 
         $products = [];
 
-        while($howManyProds > 0) {
+        while ($howManyProds > 0) {
             $products[] = $this->productGenerator->generate();
-            $howManyProds--;
+            --$howManyProds;
         }
 
         return new ProductList($products);

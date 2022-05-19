@@ -20,7 +20,7 @@ final class Product implements SimpleEntity
 
     public function getId(): string
     {
-        return (string)$this->id;
+        return (string) $this->id;
     }
 
     public static function deserialize(array $data): self
@@ -35,7 +35,7 @@ final class Product implements SimpleEntity
     public function serialize(): array
     {
         return [
-            'id' => (string)$this->id,
+            'id' => (string) $this->id,
             'name' => $this->name,
             'price' => $this->price->jsonSerialize(),
         ];

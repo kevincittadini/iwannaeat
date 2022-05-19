@@ -19,13 +19,11 @@ final class ProductList implements Serializable
     public static function deserialize(array $data): self
     {
         /** @psalm-var array{productList: array} $data */
-
         $productList = [];
 
-        foreach ($data['productList'] as $product) {
+        foreach ($data as $product) {
             $productList[] = Product::deserialize($product);
         }
-
 
         return new self($productList);
     }
@@ -38,8 +36,6 @@ final class ProductList implements Serializable
             $productList[] = $product->serialize();
         }
 
-        return [
-            'productList' => $productList,
-        ];
+        return $productList;
     }
 }
